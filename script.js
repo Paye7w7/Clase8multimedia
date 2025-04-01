@@ -20,7 +20,7 @@ let isMusicPlaying = true;
 canvas.width = 400;
 canvas.height = 400;
 
-// Generar posición aleatoria sin chocar con la serpiente ni obstáculos
+
 function getRandomPosition() {
     let position;
     let valid = false;
@@ -33,22 +33,22 @@ function getRandomPosition() {
         
         if (!snake.some(segment => segment.x === position.x && segment.y === position.y) &&
             !obstacles.some(obs => obs.x === position.x && obs.y === position.y) &&
-            !(position.x === food.x && position.y === food.y)) { // Asegurarse de que no se sobreponga con la comida
+            !(position.x === food.x && position.y === food.y)) { 
             valid = true;
         }
     }
     return position;
 }
 
-// Genera comida
+
 function placeFood() {
     food = getRandomPosition();
 }
 
-// Genera obstáculos
+
 function generateObstacles() {
-    // Duplicar la cantidad de obstáculos por cada múltiplo de 50 puntos
-    const numObstacles = Math.floor(score / 50) + 5; // Se empieza con 5 obstáculos y se duplica cada 50 puntos
+  
+    const numObstacles = Math.floor(score / 50) + 5; 
     obstacles = [];
 
     for (let i = 0; i < numObstacles; i++) {
@@ -56,23 +56,23 @@ function generateObstacles() {
     }
 }
 
-// Cambiar color de la serpiente y del body en cada nivel
+
 function changeColors() {
     const colors = ["#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#9b59b6"];
     snakeColor = colors[level % colors.length];
 
-    // Color contrario del body
+    
     const bodyColors = ["#3498db", "#e74c3c", "#f39c12", "#2ecc71", "#9b59b6"];
     document.body.style.backgroundColor = bodyColors[level % bodyColors.length];
 }
 
-// Aumentar el tamaño del canvas en cada nivel
+
 function increaseCanvasSize() {
     canvas.width += 50;
     canvas.height += 50;
 }
 
-// Detectar teclas
+
 document.addEventListener("keydown", (e) => {
     if (gameOver) return;
 
@@ -90,22 +90,22 @@ document.addEventListener("keydown", (e) => {
 function update() {
     if (gameOver) return;
 
-    // Mover la serpiente
+   
     const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
 
-    // Colisión con bordes
+   
     if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
         gameOver = true;
     }
 
-    // Colisión con el cuerpo
+    
     for (let i = 1; i < snake.length; i++) {
         if (head.x === snake[i].x && head.y === snake[i].y) {
             gameOver = true;
         }
     }
 
-    // Colisión con obstáculos
+  
     for (let obs of obstacles) {
         if (head.x === obs.x && head.y === obs.y) {
             gameOver = true;
@@ -118,16 +118,16 @@ function update() {
         return;
     }
 
-    // Agregar nueva cabeza
+    
     snake.unshift(head);
 
-    // Comer comida
+    
     if (head.x === food.x && head.y === food.y) {
         score += 10;
         scoreDisplay.textContent = score;
         placeFood();
 
-        // Cada 50 puntos, aumentar la dificultad generando más obstáculos
+        
         if (score % 50 === 0) {
             generateObstacles();
             changeColors();
@@ -141,17 +141,17 @@ function update() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Dibujar comida
+ 
     ctx.fillStyle = "green";
     ctx.fillRect(food.x, food.y, gridSize, gridSize);
 
-    // Dibujar obstáculos
+ 
     ctx.fillStyle = "black";
     obstacles.forEach(obs => {
         ctx.fillRect(obs.x, obs.y, gridSize, gridSize);
     });
 
-    // Dibujar serpiente
+    
     ctx.fillStyle = snakeColor;
     snake.forEach((segment, index) => {
         ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
@@ -166,7 +166,7 @@ function gameLoop() {
     }
 }
 
-// Música de fondo (activar automáticamente)
+
 document.addEventListener("DOMContentLoaded", () => {
     gameMusic.play().catch(error => {
         console.log("Reproducción automática bloqueada:", error);
@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Música de fondo (activar/desactivar con botón)
+
 musicButton.addEventListener("click", () => {
     if (isMusicPlaying) {
         gameMusic.pause();
@@ -187,7 +187,7 @@ musicButton.addEventListener("click", () => {
     isMusicPlaying = !isMusicPlaying;
 });
 
-// Reiniciar juego
+
 restartButton.addEventListener("click", () => {
     location.reload();
 });
