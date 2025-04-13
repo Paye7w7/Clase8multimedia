@@ -1,26 +1,40 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de la Vibora</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Metal Slug JS</title>
+
+    <link href="./src/styles/index.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-    <h1>Juego Viborita de MAnuel Paye</h1>
-    <div class="game-container">
-        <canvas id="gameCanvas"></canvas>
-        <div id="info">
-            <p>Puntuación: <span id="score">0</span></p>
-            <p id="gameOver" style="display: none; color: red; font-weight: bold;">¡Game Over!</p>
-            <button id="restartButton" style="display: none;">Reiniciar</button>
-            <button id="musicButton">🔇 Pausar Música</button>
-            <audio id="gameMusic" loop autoplay>
-                <source src="music.mp3" type="audio/mpeg">
-            </audio>
+    <div id="container">
+        <div id="fundoGame">
+            <div id="inicio" onclick="start()">
+                <h1> Guerra del chaco </h1>
+                Destruye a los chilenos y salva a los bolivianos!
+                <p class="start">
+                    <strong>W</strong> = ▲ Arriba<br>
+                    <strong>S</strong> = ▼ Abajo<br>
+                    <strong>A</strong> = ◄ Izquierda<br>
+                    <strong>D</strong> = ► Derecha<br>
+                    <strong>Espacio</strong> = ✱ Disparas<br>
+                </p>
+                <button>JUGAR</button>
+            </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
+    
+    <audio src="./src/assets/audios/som.mp3" preload="auto" id="somDisparo"></audio>
+    <audio src="./src/assets/audios/explosao.mp3" preload="auto" id="somExplosao"></audio>
+    <audio src="./src/assets/audios/musica.mp3" preload="auto" id="musica"></audio>
+    <audio src="./src/assets/audios/gameover.mp3" preload="auto" id="somGameover"></audio>
+    <audio src="./src/assets/audios/perdido.mp3" preload="auto" id="somPerdido"></audio>
+    <audio src="./src/assets/audios/resgate.mp3" preload="auto" id="somResgate"></audio>
+    <script type="text/javascript" src="./src/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./src/scripts/main.js"></script>
+    <script type="text/javascript" src="./src/js/jquery-collision.min.js"></script>
 </body>
+
 </html>
